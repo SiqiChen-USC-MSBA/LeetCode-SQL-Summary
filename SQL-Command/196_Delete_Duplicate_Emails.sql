@@ -1,18 +1,18 @@
--- Solution 1: SQL Command, Join
+-- Solution 1: Using JOIN to delete duplicate records
 DELETE p1 
 FROM person p1
 JOIN person p2
-    ON p1.email = p2.email AND p1.id > p2.id;  
-    
+    ON p1.email = p2.email 
+    AND p1.id > p2.id;
 
-
--- Solution 2: SQL Command, Subquery
+-- Solution 2: Using a Subquery to delete duplicate records
 DELETE FROM person
 WHERE id NOT IN (
-    SELECT *
+    SELECT id
     FROM (
         SELECT MIN(id) AS id
         FROM person
         GROUP BY email
-        ) tb1
+    ) AS tb1
 );
+
